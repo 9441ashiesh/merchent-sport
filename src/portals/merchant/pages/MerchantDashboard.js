@@ -16,6 +16,15 @@ const MerchantDashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showNotifications, setShowNotifications] = useState(false);
 
+  // Draggable cards state
+  const [draggedCard, setDraggedCard] = useState(null);
+  const [statsOrder, setStatsOrder] = useState([
+    { id: 'sales', icon: '💰', title: 'Total Sales', key: 'sales', color: 'green' },
+    { id: 'orders', icon: '🛒', title: 'Total Orders', key: 'orders', color: 'blue' },
+    { id: 'products', icon: '📦', title: 'Active Products', key: 'products', color: 'orange' },
+    { id: 'users', icon: '👥', title: 'New Users', key: 'users', color: 'purple' },
+  ]);
+
   // Data that changes based on time range
   const getRevenueData = () => {
     const datasets = {
@@ -86,6 +95,43 @@ const MerchantDashboard = () => {
   };
 
   const stats = getStats();
+
+  // Drag and drop handlers
+  const handleDragStart = (e, index) => {
+    setDraggedCard(index);
+    e.dataTransfer.effectAllowed = 'move';
+    e.currentTarget.style.opacity = '0.4';
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.style.opacity = '1';
+    setDraggedCard(null);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault();
+    if (draggedCard === null || draggedCard === dropIndex) return;
+
+    const newOrder = [...statsOrder];
+    const draggedItem = newOrder[draggedCard];
+    newOrder.splice(draggedCard, 1);
+    newOrder.splice(dropIndex, 0, draggedItem);
+    setStatsOrder(newOrder);
+  };
+
+  const handleDragEnter = (e, index) => {
+    if (draggedCard === null || draggedCard === index) return;
+    e.currentTarget.style.transform = 'scale(1.05)';
+  };
+
+  const handleDragLeave = (e) => {
+    e.currentTarget.style.transform = 'scale(1)';
+  };
 
   // Orders by device
   const deviceData = [
@@ -206,42 +252,39 @@ const MerchantDashboard = () => {
 
       {/* Stats Grid - Dynamic based on time range */}
       <div className="stats-grid">
-        <StatCard
-          icon="💰"
-          title="Total Sales"
-          value={stats.sales}
-          change={stats.salesChange}
-          changeType="positive"
-          trend={`vs last ${timeRange}`}
-          color="green"
-        />
-        <StatCard
-          icon="🛒"
-          title="Total Orders"
-          value={stats.orders}
-          change={stats.ordersChange}
-          changeType="positive"
-          trend={`vs last ${timeRange}`}
-          color="blue"
-        />
-        <StatCard
-          icon="📦"
-          title="Active Products"
-          value={stats.products}
-          change={stats.productsChange}
-          changeType="positive"
-          trend={`vs last ${timeRange}`}
-          color="orange"
-        />
-        <StatCard
-          icon="👥"
-          title="New Users"
-          value={stats.users}
-          change={stats.usersChange}
-          changeType="positive"
-          trend={`vs last ${timeRange}`}
-          color="purple"
-        />
+        {statsOrder.map((stat, index) => {
+          const statKey = stat.key;
+          const statData = {
+            sales: { value: stats.sales, change: stats.salesChange, trend: `vs last ${timeRange}` },
+            orders: { value: stats.orders, change: stats.ordersChange, trend: `vs last ${timeRange}` },
+            products: { value: stats.products, change: stats.productsChange, trend: `vs last ${timeRange}` },
+            users: { value: stats.users, change: stats.usersChange, trend: `vs last ${timeRange}` },
+          };
+
+          return (
+            <div
+              key={stat.id}
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragEnd={handleDragEnd}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, index)}
+              onDragEnter={(e) => handleDragEnter(e, index)}
+              onDragLeave={handleDragLeave}
+              className="draggable-card-wrapper"
+            >
+              <StatCard
+                icon={stat.icon}
+                title={stat.title}
+                value={statData[statKey].value}
+                change={statData[statKey].change}
+                changeType="positive"
+                trend={statData[statKey].trend}
+                color={stat.color}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {/* Charts Row */}

@@ -284,6 +284,33 @@
   margin-bottom: 24px;
 }
 
+/* Draggable Card Wrapper */
+.draggable-card-wrapper {
+  cursor: grab;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.draggable-card-wrapper:active {
+  cursor: grabbing;
+}
+
+.draggable-card-wrapper:hover {
+  transform: translateY(-2px);
+}
+
+.draggable-card-wrapper:hover::after {
+  content: '⋮⋮';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 16px;
+  color: #cbd5e1;
+  pointer-events: none;
+  font-weight: bold;
+  letter-spacing: -2px;
+}
+
 /* Ensure 2 columns on all screen sizes for consistency */
 @media (max-width: 1200px) {
   .stats-grid {
