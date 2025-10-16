@@ -15,19 +15,42 @@ const CoachingPortal = () => {
   const { logout, user } = useAuth();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const isActive = (path) => location.pathname.includes(path);
 
   return (
-    <div className="portal-layout">
-      <aside className={`portal-sidebar ${sidebarOpen ? 'open' : ''}`}>
+    <div className={`portal-layout ${sidebarOpen ? 'sidebar-open' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}
+         onClick={(e) => {
+           if (e.target.classList.contains('portal-layout') && sidebarOpen) {
+             setSidebarOpen(false);
+           }
+         }}>
+      <aside className={`portal-sidebar ${sidebarOpen ? 'open' : ''} ${sidebarCollapsed ? 'collapsed' : ''}`}>
+        <button 
+          className="sidebar-close-btn" 
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          ✕
+        </button>
+        
         {/* Sidebar Header */}
         <div className="sidebar-header">
-          <h2>
-            <span className="nav-item-icon">🏃</span>
-            Coaching Center
-          </h2>
-          <p className="sidebar-subtitle">Sports Training Platform</p>
+          <div className="sidebar-header-content">
+            <h2>
+              <span className="nav-item-icon">🏃</span>
+              <span className="sidebar-header-text">Coaching Center</span>
+            </h2>
+            <p className="sidebar-subtitle">Sports Training Platform</p>
+          </div>
+          <button 
+            className="sidebar-toggle-btn" 
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            aria-label="Toggle sidebar"
+          >
+            {sidebarCollapsed ? '→' : '←'}
+          </button>
         </div>
 
         {/* Navigation */}

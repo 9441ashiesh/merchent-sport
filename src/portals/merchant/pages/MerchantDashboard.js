@@ -213,6 +213,7 @@ const MerchantDashboard = () => {
           change={stats.salesChange}
           changeType="positive"
           trend={`vs last ${timeRange}`}
+          color="green"
         />
         <StatCard
           icon="🛒"
@@ -221,6 +222,7 @@ const MerchantDashboard = () => {
           change={stats.ordersChange}
           changeType="positive"
           trend={`vs last ${timeRange}`}
+          color="blue"
         />
         <StatCard
           icon="📦"
@@ -229,6 +231,7 @@ const MerchantDashboard = () => {
           change={stats.productsChange}
           changeType="positive"
           trend={`vs last ${timeRange}`}
+          color="orange"
         />
         <StatCard
           icon="👥"
@@ -237,6 +240,7 @@ const MerchantDashboard = () => {
           change={stats.usersChange}
           changeType="positive"
           trend={`vs last ${timeRange}`}
+          color="purple"
         />
       </div>
 

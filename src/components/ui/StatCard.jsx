@@ -1,9 +1,9 @@
 import React from 'react';
 import './StatCard.css';
 
-const StatCard = ({ title, value, change, changeType, icon, trend }) => {
+const StatCard = ({ title, value, change, changeType, icon, trend, color = 'blue' }) => {
   return (
-    <div className="stat-card">
+    <div className="stat-card" data-color={color}>
       <div className="stat-card-header">
         <span className="stat-icon">{icon}</span>
         <span className="stat-title">{title}</span>

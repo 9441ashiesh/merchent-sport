@@ -38,3 +38,64 @@
 .chart-card-content {
   min-height: 200px;
 }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .chart-card {
+    padding: 20px 16px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .chart-card-header {
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .chart-card-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .chart-card-subtitle {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  .chart-card-actions {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chart-card-content {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-card {
+    padding: 16px 14px;
+    border-radius: 14px;
+  }
+
+  .chart-card-header {
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+
+  .chart-card-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .chart-card-subtitle {
+    font-size: 12px;
+  }
+
+  .chart-card-content {
+    min-height: 180px;
+  }
+}

@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../../../context/AuthContext';
+import StatCard from '../../../components/ui/StatCard';
+import ChartCard from '../../../components/ui/ChartCard';
+import './EventDashboard.css';
 
 const EventDashboard = () => {
   const { user } = useAuth();
+  const [timeRange, setTimeRange] = useState('month');
 
-  const metrics = [
-    { label: 'Total Tickets Sold', value: '1,247', change: '+25%', positive: true },
-    { label: 'Revenue', value: '$62,350', change: '+18.5%', positive: true },
-    { label: 'Upcoming Events', value: '12', change: '+2', positive: true },
-    { label: 'Check-in Rate', value: '92%', change: '+5%', positive: true },
-  ];
+  const stats = {
+    tickets: '1,247',
+    revenue: '$62,350',
+    events: '12',
+    checkin: '92%',
+    ticketsChange: '+25%',
+    revenueChange: '+18.5%',
+    eventsChange: '+2',
+    checkinChange: '+5%',
+  };
 
   const upcomingEvents = [
     { id: 1, name: 'Basketball Tournament 2024', date: 'Dec 20, 2024', tickets: 450, revenue: '$22,500' },
@@ -18,47 +26,89 @@ const EventDashboard = () => {
   ];
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', marginBottom: '20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <h2>Welcome, {user?.name}! 👋</h2>
-        <p style={{ color: '#999' }}>Your event analytics and performance overview</p>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '30px' }}>
-        {metrics.map((m, idx) => (
-          <div key={idx} style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', borderLeft: '4px solid #4ecdc4' }}>
-            <p style={{ color: '#999', fontSize: '12px', marginBottom: '8px' }}>{m.label}</p>
-            <p style={{ fontSize: '24px', fontWeight: 'bold', color: '#333', marginBottom: '8px' }}>{m.value}</p>
-            <p style={{ color: m.positive ? '#28a745' : '#dc3545', fontSize: '12px' }}>
-              {m.positive ? '↑' : '↓'} {m.change}
-            </p>
+    <div className="modern-dashboard">
+      {/* Dashboard Header */}
+      <div className="dashboard-header">
+        <div>
+          <h1 className="dashboard-title">Event Dashboard</h1>
+          <p className="dashboard-subtitle">Welcome back, {user?.name}! 👋 Your event analytics overview</p>
+        </div>
+        <div className="dashboard-actions">
+          <div className="button-group">
+            <button className={`filter-btn ${timeRange === 'week' ? 'active' : ''}`} onClick={() => setTimeRange('week')}>Week</button>
+            <button className={`filter-btn ${timeRange === 'month' ? 'active' : ''}`} onClick={() => setTimeRange('month')}>Month</button>
+            <button className={`filter-btn ${timeRange === 'year' ? 'active' : ''}`} onClick={() => setTimeRange('year')}>Year</button>
           </div>
-        ))}
+          <button className="icon-btn">📊</button>
+          <button className="icon-btn">🔔</button>
+        </div>
       </div>
 
-      <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-        <h3 style={{ marginBottom: '15px' }}>Upcoming Events</h3>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead style={{ background: '#f8f9fa' }}>
-            <tr>
-              <th style={{ textAlign: 'left', padding: '12px', borderBottom: '1px solid #eee' }}>Event Name</th>
-              <th style={{ textAlign: 'left', padding: '12px', borderBottom: '1px solid #eee' }}>Date</th>
-              <th style={{ textAlign: 'left', padding: '12px', borderBottom: '1px solid #eee' }}>Tickets Sold</th>
-              <th style={{ textAlign: 'left', padding: '12px', borderBottom: '1px solid #eee' }}>Revenue</th>
-            </tr>
-          </thead>
-          <tbody>
-            {upcomingEvents.map((evt) => (
-              <tr key={evt.id} style={{ borderBottom: '1px solid #eee' }}>
-                <td style={{ padding: '12px' }}>{evt.name}</td>
-                <td style={{ padding: '12px' }}>{evt.date}</td>
-                <td style={{ padding: '12px', fontWeight: '600' }}>{evt.tickets}</td>
-                <td style={{ padding: '12px', color: '#28a745', fontWeight: '600' }}>{evt.revenue}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Stats Grid with Pastel Colors */}
+      <div className="stats-grid">
+        <StatCard
+          icon="🎟️"
+          title="Total Tickets Sold"
+          value={stats.tickets}
+          change={stats.ticketsChange}
+          changeType="positive"
+          trend={`vs last ${timeRange}`}
+          color="blue"
+        />
+        <StatCard
+          icon="💰"
+          title="Revenue"
+          value={stats.revenue}
+          change={stats.revenueChange}
+          changeType="positive"
+          trend={`vs last ${timeRange}`}
+          color="green"
+        />
+        <StatCard
+          icon="📅"
+          title="Upcoming Events"
+          value={stats.events}
+          change={stats.eventsChange}
+          changeType="positive"
+          trend={`vs last ${timeRange}`}
+          color="orange"
+        />
+        <StatCard
+          icon="✓"
+          title="Check-in Rate"
+          value={stats.checkin}
+          change={stats.checkinChange}
+          changeType="positive"
+          trend={`vs last ${timeRange}`}
+          color="purple"
+        />
       </div>
+
+      {/* Upcoming Events Table */}
+      <ChartCard title="Upcoming Events" subtitle="Your scheduled events">
+        <div className="modern-table-container">
+          <table className="modern-table">
+            <thead>
+              <tr>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Tickets Sold</th>
+                <th>Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              {upcomingEvents.map((evt) => (
+                <tr key={evt.id}>
+                  <td className="table-id">{evt.name}</td>
+                  <td className="table-time">{evt.date}</td>
+                  <td className="table-amount">{evt.tickets}</td>
+                  <td className="table-amount" style={{ color: '#10b981' }}>{evt.revenue}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </ChartCard>
     </div>
   );
 };

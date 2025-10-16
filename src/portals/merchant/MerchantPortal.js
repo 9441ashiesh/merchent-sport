@@ -14,19 +14,45 @@ const MerchantPortal = () => {
   const { logout, user } = useAuth();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const isActive = (path) => location.pathname.includes(path);
 
   return (
-    <div className="portal-layout">
-      <aside className={`portal-sidebar ${sidebarOpen ? 'open' : ''}`}>
+    <div className={`portal-layout ${sidebarOpen ? 'sidebar-open' : ''} ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}
+         onClick={(e) => {
+           // Close sidebar when clicking on backdrop (portal-layout background)
+           if (e.target.classList.contains('portal-layout') && sidebarOpen) {
+             setSidebarOpen(false);
+           }
+         }}>
+      <aside className={`portal-sidebar ${sidebarOpen ? 'open' : ''} ${sidebarCollapsed ? 'collapsed' : ''}`}>
+        {/* Close button for mobile */}
+        <button 
+          className="sidebar-close-btn" 
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          ✕
+        </button>
+        
         {/* Sidebar Header */}
         <div className="sidebar-header">
-          <h2>
-            <span className="nav-item-icon">🏪</span>
-            Merchant Portal
-          </h2>
-          <p className="sidebar-subtitle">Store Management System</p>
+          <div className="sidebar-header-content">
+            <h2>
+              <span className="nav-item-icon">🏪</span>
+              <span className="sidebar-header-text">Merchant Portal</span>
+            </h2>
+            <p className="sidebar-subtitle">Store Management System</p>
+          </div>
+          {/* Toggle button */}
+          <button 
+            className="sidebar-toggle-btn" 
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          >
+            {sidebarCollapsed ? '→' : '←'}
+          </button>
         </div>
 
         {/* Navigation */}
