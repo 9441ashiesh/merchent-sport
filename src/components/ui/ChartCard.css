@@ -1,0 +1,40 @@
+.chart-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+}
+
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.chart-card-title-section {
+  flex: 1;
+}
+
+.chart-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+}
+
+.chart-card-subtitle {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.chart-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.chart-card-content {
+  min-height: 200px;
+}

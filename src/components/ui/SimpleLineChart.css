@@ -1,0 +1,112 @@
+.simple-line-chart {
+  position: relative;
+  width: 100%;
+}
+
+.simple-line-chart svg {
+  display: block;
+}
+
+.chart-area {
+  transition: fill-opacity 0.3s ease;
+}
+
+.chart-line {
+  transition: stroke-width 0.3s ease;
+}
+
+.simple-line-chart:hover .chart-area {
+  fill-opacity: 0.15;
+}
+
+.simple-line-chart:hover .chart-line {
+  stroke-width: 0.7;
+}
+
+.chart-point {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.chart-point:hover,
+.chart-point.hovered {
+  r: 2.5;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.chart-point-ring {
+  animation: pulseRing 1s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    r: 2.5;
+    opacity: 0.3;
+  }
+  100% {
+    r: 4;
+    opacity: 0;
+  }
+}
+
+.chart-tooltip {
+  position: absolute;
+  background: rgba(26, 26, 26, 0.95);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.chart-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid rgba(26, 26, 26, 0.95);
+}
+
+.tooltip-label {
+  font-size: 11px;
+  opacity: 0.8;
+  margin-bottom: 2px;
+}
+
+.tooltip-value {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.chart-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+.chart-label {
+  font-size: 11px;
+  color: #888;
+}

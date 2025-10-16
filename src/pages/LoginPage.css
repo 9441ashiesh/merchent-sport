@@ -1,0 +1,123 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f8f8;
+  padding: 20px;
+}
+
+.login-box {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 50px 40px;
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid #e5e5e5;
+}
+
+.login-box h1 {
+  text-align: center;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 35px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.login-form {
+  margin-bottom: 0;
+}
+
+.login-form .form-group {
+  margin-bottom: 24px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #1a1a1a;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hint-text {
+  font-size: 11px;
+  color: #999;
+  margin-top: 6px;
+  font-weight: 400;
+}
+
+.login-form input,
+.login-form textarea,
+.login-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.login-form input:focus,
+.login-form select:focus {
+  outline: none;
+  border-color: #555;
+  background-color: #fafafa;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-login:hover {
+  background-color: #333;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e5e5;
+  color: #999;
+  font-size: 11px;
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 30px 20px;
+  }
+
+  .login-box h1 {
+    font-size: 24px;
+  }
+
+  .demo-buttons {
+    grid-template-columns: 1fr;
+  }
+}

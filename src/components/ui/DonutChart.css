@@ -1,0 +1,92 @@
+.donut-chart-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  justify-content: center;
+}
+
+.donut-chart-wrapper {
+  position: relative;
+}
+
+.donut-chart {
+  flex-shrink: 0;
+}
+
+.donut-segment {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.donut-segment.active {
+  animation: segmentPop 0.3s ease-out;
+}
+
+@keyframes segmentPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.legend-item:hover {
+  background-color: #f8f8f8;
+}
+
+.legend-item.active {
+  background-color: #f0f0f0;
+  transform: translateX(4px);
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.legend-label {
+  flex: 1;
+  color: #555;
+  transition: color 0.2s ease;
+}
+
+.legend-item.active .legend-label {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.legend-value {
+  font-weight: 600;
+  color: #1a1a1a;
+  transition: all 0.2s ease;
+}
+
+.legend-item.active .legend-value {
+  font-size: 15px;
+  color: #6366f1;
+}
